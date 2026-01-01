@@ -1,9 +1,5 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../bootstrap/prepend.inc.php';
+require __DIR__ . '/../app/Presentation/routes.php';
 
-use App\Domain\Entity\Test;
-
-new Test();
-
-echo "Autoload works";
