@@ -39,9 +39,9 @@ foreach ($migrationFiles as $file) {
 
     echo "Running migration: {$migrationName}\n";
 
-    $sql = require $file;
+    $migration = require $file;
 
-    $pdo->exec($sql);
+    $pdo->exec($migration['up']);
 
     $stmt = $pdo->prepare(
         "INSERT INTO migrations (migration) VALUES (:migration)"
