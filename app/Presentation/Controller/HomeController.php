@@ -6,6 +6,9 @@ class HomeController
 {
     public function index(): void
     {
-        echo "Currency Rate application is running";
+        echo "App: " . getenv('APP_NAME') . "<br>";
+        echo "Environment: " . getenv('APP_ENV');
     }
 }
+
+
