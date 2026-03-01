@@ -6,6 +6,8 @@ use App\Infrastructure\Database\Connection;
 
 $pdo = Connection::make();
 
+exit("Forced migration failure");
+
 /**
  * 1. Ensure migrations table exists
  */
