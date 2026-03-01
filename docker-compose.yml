@@ -4,21 +4,33 @@ services:
   app:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
-    container_name: currency_app
+      dockerfile: Dockerfile
+    restart: unless-stopped
     volumes:
-      - .:/var/www
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
+      - .:/var/www/html
     env_file:
       - .env
+    networks:
+      - currency_network
+
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./certbot:/var/www/certbot
+    depends_on:
+      - app
+    networks:
+      - currency_network
 
   db:
     image: mysql:8.0
-    container_name: currency_db
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: currency_rate
@@ -26,9 +38,11 @@ services:
       MYSQL_PASSWORD: currency_pass
     volumes:
       - db_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+    networks:
+      - currency_network
 
 volumes:
   db_data:
 
+networks:
+  currency_network:
