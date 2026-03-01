@@ -1,12 +1,14 @@
 <?php
 
+
+exit("FORCE TEST")
+
 require __DIR__ . '/../bootstrap/prepend.inc.php';
 
 use App\Infrastructure\Database\Connection;
 
 $pdo = Connection::make();
 
-exit("Forced migration failure");
 
 /**
  * 1. Ensure migrations table exists
