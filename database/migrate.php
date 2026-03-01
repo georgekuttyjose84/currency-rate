@@ -1,7 +1,7 @@
 <?php
 
 
-exit("FORCE TEST")
+exit("FORCE 11TEST");
 
 require __DIR__ . '/../bootstrap/prepend.inc.php';
 
