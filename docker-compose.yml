@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   app:
     build:
@@ -27,6 +25,12 @@ services:
       - app
     networks:
       - currency_network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot:/var/www/certbot
+      - /etc/letsencrypt:/etc/letsencrypt
 
   db:
     image: mysql:8.0
